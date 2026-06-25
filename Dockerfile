@@ -1,7 +1,9 @@
 FROM php:8.2-apache
 
-# Salin semua file projek lo ke dalam folder server Apache
+# Mengizinkan Apache mengoper Environment Variable ke PHP
+RUN sed -i 's/Variables_Order = .*/Variables_Order = "EGPCS"/' $PHP_INI_DIR/php.ini-development \
+    && cp $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
+
 COPY . /var/www/html/
 
-# Buka port 80 untuk akses web
 EXPOSE 80
